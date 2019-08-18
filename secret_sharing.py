@@ -2,10 +2,8 @@ from decimal import *
 from random import *
 
 
-getcontext().prec = 10000
-
-
 class Encoder:
+
 	def __init__(self, message: str, keys: int):
 		self._message = Converter().string_to_int(message)
 		self._keys = keys
@@ -23,6 +21,7 @@ class Encoder:
 
 
 class Decoder:
+
 	def __init__(self, key_list: list):
 		self._key_list = key_list
 
@@ -33,20 +32,13 @@ class Decoder:
 			for j in range(len(self._key_list)):
 				if i != j:
 					temp_result *= Decimal(self._key_list[j][0]) / (Decimal(self._key_list[j][0]) - Decimal(self._key_list[i][0]))
-			decrypted += temp_result * Decimal(self._key_list[i][1])
+			decrypted += int(temp_result * Decimal(self._key_list[i][1]))
 		return Converter().int_to_string(int(decrypted))
 
 
-
-
 class Converter:
-	"""
-	>>> c = Converter()
-	>>> c.int_to_string(c.string_to_int('abcdefghijklnmopqrstuvwxyz'))
-	'abcdefghijklnmopqrstuvwxyz'
-	"""
 
-	def __init__(self, seed = 1024):
+	def __init__(self, seed=1024):
 		self.seed = seed
 
 	def string_to_int(self, string: str):
@@ -62,11 +54,3 @@ class Converter:
 			string += chr(number % self.seed)
 			number //= self.seed
 		return string[::-1]
-
-
-e = Encoder('ffkjnbkdjfnbvkdfjnklwjfbnlkwdjfvnlkwfjvnwlkfjvnwkljdfvnkwjfvnkwjfnvlkwjfvnlwjkfdbvjwhbcvh,wgvcwhsdgcvhwdsbvjsbjkwsdbv,jwsdbvhjdwsbvh', 3)
-l = [e.get_key() for _ in range(3)]
-for i in l:
-	print(i)
-print(Decoder(l).decrypt())
-print(Converter().string_to_int('ffkjnbkdjfnbvkdfjnklwjfbnlkwdjfvnlkwfjvnwlkfjvnwkljdfvnkwjfvnkwjfnvlkwjfvnlwjkfdbvjwhbcvh,wgvcwhsdgcvhwdsbvjsbjkwsdbv,jwsdbvhjdwsbvh'))
