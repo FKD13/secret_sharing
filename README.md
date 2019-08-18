@@ -2,6 +2,7 @@
 
 A simple python mini librairy to encrypt strings using [Shamir's secret sharing scheme](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing#Mathematical_definition).
 
+
 ## usage
 
 A basic example of how to use the code
@@ -43,4 +44,4 @@ To decrypt the message you should make a `Decoder` object which you have to prov
 
 ## Notes
 
-+ During the decoding you might nitice that the last character of the message can be different compared to the beginning, the rest of the message should be the same.
++ During the decoding you might notice that the last character of the message can be different compared to the beginning, the rest of the message should be the same.
